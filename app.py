@@ -17,7 +17,7 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 @app.route("/", methods=['GET','POST'])
 def start():
-    #servers  = ['athena.ecs.csus.edu','atoz.ecs.csus.edu','sp1.ecs.csus.edu','sp2.ecs.csus.edu']
+    #servers  = ['athena.ecs.csus.edu','atoz.ecs.csus.edu','sp1.ecs.csus.edu','sp2.ecs.csus.edu','hydra.ecs.csus.edu']
     servers = ['athena.ecs.csus.edu']
     out_list = []
     
@@ -28,18 +28,13 @@ def start():
 
 def pull(server_name):
     ssh.connect(server_name, username='vedv', password=PASSWORD)
-    #stdin, stdout, stderr = ssh.exec_command("sudo dmesg") 
     stdin, stdout, stderr = \
     ssh.exec_command("uptime")
     type(stdin)
     out_string = stdout.readlines()
     ssh.exec_command("logout")
-    #type("logout")
+    type(stdin)
     return out_string
-
-    #out_list = []
-    #out_list.append(out_string)
-    #return out_list
 
 if __name__ == '__main__':
     app.debug = True
